@@ -1,9 +1,10 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border bottom">
-    <div class="container-fluid">
+    <div class="container">
 
         <!-- Brand -->
-        <a class="navbar-brand" href="./home">
+        <a class="navbar-brand" href="{{  path('home') }}">
+            Accueil
             <img src="/img/Daco.png" class="navbar-brand-img" alt="">
         </a>
 
@@ -23,9 +24,10 @@
             <!-- Navigation -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarLandings" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link " href="{{  path('peintures') }}">
                         Réalisations
                     </a>
+
                     {#
                     <div class="dropdown-menu dropdown-menu-xl p-0" aria-labelledby="navbarLandings">
                         <div class="row gx-0">
@@ -121,10 +123,11 @@
                             </div>
                         </div> <!-- / .row -->
                     </div>
-                </li>
                     #}
+                </li>
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarPages" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link" href="{{  path('actualites') }}">
                         Actualités
                     </a>
                     {#
@@ -254,8 +257,9 @@
                             </div>
                         </div>
                     </div> <!-- / .row -->
-                </li>
                     #}
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarAccount" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
                         PorteFolio
