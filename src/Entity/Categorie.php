@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Categorie
      * @ORM\Column(type="text")
      */
     private $Description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Peinture::class, mappedBy="categorie")
+     */
+    private $peintures;
+
+    public function __construct()
+    {
+        $this->peintures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,36 @@ class Categorie
     public function setDescription(string $Description): self
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Peinture[]
+     */
+    public function getPeintures(): Collection
+    {
+        return $this->peintures;
+    }
+
+    public function addPeinture(Peinture $peinture): self
+    {
+        if (!$this->peintures->contains($peinture)) {
+            $this->peintures[] = $peinture;
+            $peinture->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removePeinture(Peinture $peinture): self
+    {
+        if ($this->peintures->removeElement($peinture)) {
+            // set the owning side to null (unless already changed)
+            if ($peinture->getCategorie() === $this) {
+                $peinture->setCategorie(null);
+            }
+        }
 
         return $this;
     }

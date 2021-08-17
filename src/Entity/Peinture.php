@@ -52,6 +52,16 @@ class Peinture
      */
     private $Prix;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="peintures")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="peintures")
+     */
+    private $categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +147,30 @@ class Peinture
     public function setPrix(int $Prix): self
     {
         $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
