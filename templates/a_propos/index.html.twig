@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos!{% endblock %}
+
+{% block body %}
+        <section data-jarallax data-speed=".8" class="py-10 py-md-14 overlay overlay-black overlay-60 bg-cover jarallax" style="background-image: url(/img/Donkey_Kong_Country_Returns.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    <blockquote class="blockquote mb-0">
+                        <p class="h2 text-white">
+                            {{ peintre.aPropos }}
+                        </p>
+                        <footer class="blockquote-footer text-white-50 mb-0">
+                            {{ peintre.prenom }} {{ peintre.nom }}
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

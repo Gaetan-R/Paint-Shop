@@ -31,6 +31,7 @@ class AppFixtures extends Fixture
         $user->setEmail('banana@test.com')
             ->setPrenom($faker->firstName)
             ->setNom($faker->lastName)
+            ->setRoles(['ROLE_PEINTRE'])
             ->setTelephone($faker->phoneNumber)
             ->setAPropos($faker->text);
 
