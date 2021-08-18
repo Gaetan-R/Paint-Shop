@@ -30,7 +30,12 @@ class Categorie
     private $Description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Peinture::class, mappedBy="categorie")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Peinture::class, mappedBy="categorie")
      */
     private $peintures;
 
@@ -38,6 +43,8 @@ class Categorie
     {
         $this->peintures = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -68,6 +75,18 @@ class Categorie
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Peinture[]
      */
@@ -80,7 +99,7 @@ class Categorie
     {
         if (!$this->peintures->contains($peinture)) {
             $this->peintures[] = $peinture;
-            $peinture->setCategorie($this);
+            $peinture->addCategorie($this);
         }
 
         return $this;
@@ -89,12 +108,11 @@ class Categorie
     public function removePeinture(Peinture $peinture): self
     {
         if ($this->peintures->removeElement($peinture)) {
-            // set the owning side to null (unless already changed)
-            if ($peinture->getCategorie() === $this) {
-                $peinture->setCategorie(null);
-            }
+            $peinture->removeCategorie($this);
         }
 
         return $this;
     }
+
+
 }

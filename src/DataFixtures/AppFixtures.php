@@ -40,7 +40,6 @@ class AppFixtures extends Fixture
 
         $manager->persist($user);
 
-        $manager->flush();
 
         // Création de 10 blogpost
         for ($i=0; $i < 10; $i++) {
@@ -49,12 +48,11 @@ class AppFixtures extends Fixture
          $blogpost->setTitre($faker->word(3, true))
              ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
              ->setContenu($faker->text(350))
+             ->setSlug($faker->slug(3))
              ->setUser($user);
-          //   ->setSlug($faker->slug(3));
+
 
          $manager->persist($blogpost);
-
-         $manager->flush();
 
         }
 
@@ -64,7 +62,8 @@ class AppFixtures extends Fixture
             $categorie = new Categorie();
 
             $categorie->setNom($faker->word)
-                ->setDescription($faker->text);
+                ->setDescription($faker->text)
+                ->setSlug($faker->slug);
 
             $manager->persist($categorie);
 
@@ -75,12 +74,16 @@ class AppFixtures extends Fixture
                 $peinture->setNom($faker->word(3, true))
                     ->setLargeur($faker->randomFloat(2,20,60))
                     ->setHauteur($faker->randomFloat(2, 20,60))
-                    ->setVente($faker->randomElement([true, false]))
+                    ->setEnVente($faker->randomElement([true, false]))
                     ->setDateRealisation($faker->dateTimeBetween('-6 month', 'now'))
+                    ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
                     ->setDescription($faker->text)
                     ->setPrix($faker->randomFloat(2, 100, 9999))
+                    ->setPortfolio($faker->randomElement([true, false]))
                     ->setUser($user)
-                    ->setCategorie($categorie);
+                    ->setFile('/img/tableau_gaming_donkey_kong.jpg')
+                    ->setSlug($faker->slug)
+                    ->addCategorie($categorie);
 
                 $manager->persist($peinture);
 

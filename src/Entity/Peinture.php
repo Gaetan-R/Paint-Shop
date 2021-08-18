@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PeintureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,47 +22,80 @@ class Peinture
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $Largeur;
+    private $largeur;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=6, scale=2, nullable=true)
      */
-    private $Hauteur;
+    private $hauteur;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Vente;
+    private $EnVente;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $prix;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateRealisation;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $DateRealisation;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $Description;
+    private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
-    private $Prix;
+    private $portfolio;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $file;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="peintures")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="peintures")
+     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="peintures")
      */
     private $categorie;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="peinture")
+     */
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->categorie = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -69,84 +104,132 @@ class Peinture
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getLargeur(): ?int
+    public function getLargeur(): ?string
     {
-        return $this->Largeur;
+        return $this->largeur;
     }
 
-    public function setLargeur(int $Largeur): self
+    public function setLargeur(?string $largeur): self
     {
-        $this->Largeur = $Largeur;
+        $this->largeur = $largeur;
 
         return $this;
     }
 
-    public function getHauteur(): ?int
+    public function getHauteur(): ?string
     {
-        return $this->Hauteur;
+        return $this->hauteur;
     }
 
-    public function setHauteur(int $Hauteur): self
+    public function setHauteur(?string $hauteur): self
     {
-        $this->Hauteur = $Hauteur;
+        $this->hauteur = $hauteur;
 
         return $this;
     }
 
-    public function getVente(): ?bool
+    public function getEnVente(): ?bool
     {
-        return $this->Vente;
+        return $this->EnVente;
     }
 
-    public function setVente(bool $Vente): self
+    public function setEnVente(bool $EnVente): self
     {
-        $this->Vente = $Vente;
+        $this->EnVente = $EnVente;
+
+        return $this;
+    }
+
+    public function getPrix(): ?string
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?string $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }
 
     public function getDateRealisation(): ?\DateTimeInterface
     {
-        return $this->DateRealisation;
+        return $this->dateRealisation;
     }
 
-    public function setDateRealisation(\DateTimeInterface $DateRealisation): self
+    public function setDateRealisation(?\DateTimeInterface $dateRealisation): self
     {
-        $this->DateRealisation = $DateRealisation;
+        $this->dateRealisation = $dateRealisation;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPortfolio(): ?bool
     {
-        return $this->Prix;
+        return $this->portfolio;
     }
 
-    public function setPrix(int $Prix): self
+    public function setPortfolio(bool $portfolio): self
     {
-        $this->Prix = $Prix;
+        $this->portfolio = $portfolio;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
@@ -163,15 +246,58 @@ class Peinture
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategorie(): Collection
     {
         return $this->categorie;
     }
 
-    public function setCategorie(?Categorie $categorie): self
+    public function addCategorie(Categorie $categorie): self
     {
-        $this->categorie = $categorie;
+        if (!$this->categorie->contains($categorie)) {
+            $this->categorie[] = $categorie;
+        }
 
         return $this;
     }
+
+    public function removeCategorie(Categorie $categorie): self
+    {
+        $this->categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setPeinture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getPeinture() === $this) {
+                $commentaire->setPeinture(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
