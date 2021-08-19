@@ -49,6 +49,8 @@ class AppFixtures extends Fixture
              ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
              ->setContenu($faker->text(350))
              ->setSlug($faker->slug(3))
+             ->setFile('/img/Dk55.jpg')
+             ->setPublication($faker->dateTimeBetween('-6 month', 'now'))
              ->setUser($user);
 
 

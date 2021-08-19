@@ -50,6 +50,18 @@ class Blogpost
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publication;
+
+
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -150,5 +162,30 @@ class Blogpost
 
         return $this;
     }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getPublication(): ?\DateTimeInterface
+    {
+        return $this->publication;
+    }
+
+    public function setPublication(?\DateTimeInterface $publication): self
+    {
+        $this->publication = $publication;
+
+        return $this;
+    }
+
 
 }
