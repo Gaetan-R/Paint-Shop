@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails{% endblock %}
+{% block body %}
+
+<!-- CONTENT -->
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-12 col-md-4 position-md-sticky d-flex align-items-center vh-md-100" style="top: 0;">
+
+            <!-- Sidebar -->
+            <aside class="py-8 py-md-10">
+
+                <!-- Brand -->
+                <div class="img-fluid mb-4 text-body" style="max-width: 140px;">
+                   <h1 style="text-transform: uppercase;">{{ peinture.nom }}</h1>
+                </div>
+
+                <!-- Text -->
+                <p class="fs-lg mb-7 text-muted">
+                     {{ peinture.description }}
+                </p>
+
+                <!-- List group -->
+                <ul class="list-group list-group-flush">
+                    {% for categorie in peinture.categorie %}
+                    <li class="list-group-item">
+                        <!-- Heading -->
+                        <h6 class="d-flex mb-0 text-uppercase">
+                            Catégorie <span class="ms-auto">{{ categorie.nom}}</span>
+                        </h6>
+                    </li>
+                    {% endfor %}
+
+                    <li class="list-group-item">
+                        <!-- Heading -->
+                        <h6 class="d-flex mb-0 text-uppercase">
+                            Date de réalisation <span class="ms-auto">{{ peinture.dateRealisation|date('d/m/Y') }}</span>
+                        </h6>
+                    </li>
+
+                    <li class="list-group-item">
+                        <!-- Heading -->
+                        <h6 class="d-flex mb-0 text-uppercase">
+                            Largeur <span class="ms-auto">{{ peinture.largeur }} cm</span>
+                        </h6>
+                    </li>
+
+                    <li class="list-group-item">
+                        <!-- Heading -->
+                        <h6 class="d-flex mb-0 text-uppercase">
+                            Hauteur <span class="ms-auto">{{ peinture.hauteur }} cm</span>
+                        </h6>
+                    </li>
+
+                    {% if peinture.enVente %}
+                    <li class="list-group-item">
+                        <!-- Heading -->
+                        <h6 class="d-flex mb-0 text-uppercase">
+                            <strong>Disponible à la vente</strong>
+                            <span class="ms-auto">{{ peinture.prix }}€</span>
+                        </h6>
+                    </li>
+                    {% endif %}
+
+
+                </ul>
+
+            </aside>
+
+        </div>
+        <div class="col-12 col-md-7">
+
+            <!-- Images -->
+            <section class="pb-8 pt-md-12 pb-md-10">
+                <a class="d-block" data-bigpicture='{"imgSrc": "{{ peinture.file }}"}' href="#">
+                    <img class="img-fluid rounded" src="{{ peinture.file }}" alt="...">
+                </a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- SHAPE -->
+<div class="position-relative">
+    <div class="shape shape-bottom shape-fluid-x text-light">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/></svg>      </div>
+</div>
+
+{% endblock %}

@@ -29,7 +29,7 @@
                     <div class="card mb-6 shadow-light-lg lift lift-lg">
 
                         <!-- Image -->
-                        <a class="card-img-top" href="#!">
+                        <a class="card-img-top" href="{{ path('peintures_details', {'slug': peinture.slug}) }}">
 
                             <!-- Image -->
                             <img src="/img/Donkey_kong_frost.jpg" alt="..." class="card-img-top">
@@ -63,7 +63,7 @@
                             <!-- Divider -->
                             <hr class="card-meta-divider">
 
-                            <!-- Avatar -->
+                           {#  <!-- Avatar -->
                             <div class="avatar avatar-sm me-2">
                                 <img src="assets/img/avatars/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
@@ -72,7 +72,7 @@
                             <h6 class="text-uppercase text-muted me-2 mb-0">
                                 Ab Hadley
                             </h6>
-
+                           #}
                             <!-- Date -->
                             <p class="h6 text-uppercase text-muted mb-0 ms-auto">
                                 <time datetime="2019-05-31">Ajoutée le {{ peinture.DateRealisation|date('d/m/Y') }}</time>
