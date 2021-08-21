@@ -34,7 +34,7 @@
                             <a class="card-img-top" href="{{ path('actualites_details', {'slug': blogpost.slug}) }}">
 
                                 <!-- Image -->
-                                <img src="img/donkey_kong_country.jpg" alt="..." class="card-img-top">
+                                <img src="{{ blogpost.file }}" alt="..." class="card-img-top">
 
                                 <!-- Shape -->
                                 <div class="position-relative">
@@ -45,7 +45,7 @@
                             </a>
 
                             <!-- Body -->
-                            <a class="card-body my-auto" href="#!">
+                            <a class="card-body my-auto" href="{{ path('actualites_details', {'slug': blogpost.slug}) }}">
 
                                 <!-- Heading -->
                                 <h3 class="mt-auto">
