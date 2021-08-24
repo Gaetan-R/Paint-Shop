@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
              ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
              ->setContenu($faker->text(350))
              ->setSlug($faker->slug(3))
-             ->setFile('/img/Dk55.jpg')
+             ->setFile('Dk55.jpg')
              ->setPublication($faker->dateTimeBetween('-6 month', 'now'))
              ->setUser($user);
 
@@ -83,7 +83,7 @@ class AppFixtures extends Fixture
                     ->setPrix($faker->randomFloat(2, 100, 9999))
                     ->setPortfolio($faker->randomElement([true, false]))
                     ->setUser($user)
-                    ->setFile('/img/tableau_gaming_donkey_kong.jpg')
+                    ->setFile('tableau_gaming_donkey_kong.jpg')
                     ->setSlug($faker->slug)
                     ->addCategorie($categorie);
 

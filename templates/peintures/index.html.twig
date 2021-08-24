@@ -32,7 +32,7 @@
                         <a class="card-img-top" href="{{ path('peintures_details', {'slug': peinture.slug}) }}">
 
                             <!-- Image -->
-                            <img src="/img/Donkey_kong_frost.jpg" alt="..." class="card-img-top">
+                            <img src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="..." class="card-img-top">
 
                             <!-- Shape -->
                             <div class="position-relative">

@@ -6,9 +6,13 @@ use App\Repository\BlogpostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass=BlogpostRepository::class)
+ * @Vich\Uploadable
  */
 class Blogpost
 {
@@ -54,6 +58,12 @@ class Blogpost
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $file;
+
+    /**
+     * @Vich\UploadableField(mapping="peinture_images", fileNameProperty="file")
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -173,6 +183,22 @@ class Blogpost
         $this->file = $file;
 
         return $this;
+    }
+
+    public function setImageFile(?File $file = null): void
+    {
+        $this->imageFile = $file;
+
+        if (null !== $file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getPublication(): ?\DateTimeInterface

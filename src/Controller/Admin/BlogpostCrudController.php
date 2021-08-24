@@ -7,8 +7,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BlogpostCrudController extends AbstractCrudController
 {
@@ -25,8 +28,10 @@ class BlogpostCrudController extends AbstractCrudController
             TextField::new('slug')->hideOnForm()->hideOnIndex(),
             TextareaField::new('contenu'),
             DateTimeField::new('createdAt')->hideOnForm()->hideOnIndex(),
-            TextField::new('file'),
             DateField::new('publication'),
+            SlugField::new('slug')->setTargetFieldName('titre')->hideOnIndex(),
+            TextField::new('imageFile')->setFormType(VichImageType::class),
+            ImageField::new('file')->setBasePath('/uploads/peintures/')->onlyOnIndex(),
         ];
     }
 

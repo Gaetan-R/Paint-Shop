@@ -34,7 +34,7 @@
                             <a class="card-img-top" href="{{ path('actualites_details', {'slug': blogpost.slug}) }}">
 
                                 <!-- Image -->
-                                <img src="{{ blogpost.file }}" alt="..." class="card-img-top">
+                                <img src="{{ vich_uploader_asset(blogpost, 'imageFile') }}" alt="..." class="card-img-top">
 
                                 <!-- Shape -->
                                 <div class="position-relative">

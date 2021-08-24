@@ -4,9 +4,9 @@
 
 {% block body %}
 
-  {% set img = categorie.peintures|last %}
+  {% set peinture = categorie.peintures|last %}
 
-    <section data-jarallax data-speed=".8" class="pt-12 pt-md-14 pb-12 pb-mb-15 overlay overlay-black overlay-60 bg-cover jarallax" style="background-image: url(/img/dk.jpeg);">
+    <section data-jarallax data-speed=".8" class="pt-12 pt-md-14 pb-12 pb-mb-15 overlay overlay-black overlay-60 bg-cover jarallax">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-7 text-center">
@@ -33,9 +33,9 @@
 
                 {% for peinture in peintures %}
                 <div class="col-12 col-md-4">
-                    <a href="#!" class="card shadow-light-lg mb-7" data-bigpicture='{"imgSrc": "{{ peinture.file }}"}'>
+                    <a href="#!" class="card shadow-light-lg mb-7" data-bigpicture='{"imgSrc": "{{ vich_uploader_asset(peinture, 'imageFile') }}"}'>
                         <div class="card-zoom">
-                            <img src="{{ peinture.file }}" alt="..." class="card-img">
+                            <img src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="..." class="card-img">
                         </div>
                     </a>
                 </div>

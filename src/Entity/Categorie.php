@@ -114,5 +114,9 @@ class Categorie
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->Nom;
+    }
 
 }
