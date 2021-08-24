@@ -19,14 +19,14 @@
                     {% set peinture = categorie.peintures|last %}
                 <div class="col-12 col-md-4 ux">
                     <a class="card lift lift-lg shadow-light-lg mb-7" href="{{ path('portfolio_categorie', {'slug': categorie.slug}) }}">
-                        <img class="card-img-top" src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="...">
+                        <img class="card-img-top" src="{{ vich_uploader_asset(peinture, 'imageFile') | imagine_filter('portfolio') }}" alt="...">
                             <div class="card-body">
                                 <div class="shape shape-bottom-100 shape-fluid-x svg-shim text-white">
                                     <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/></svg>
 
                             </div>
                                 <h4 class="text-uppercase mb-1 text-muted">{{ categorie.nom }}</h4>
-                                <small class="mb-0">{{ categorie.description }}</small>
+                                <small class="mb-0">{{ categorie.description|u.truncate(100,'...', false) }}</small>
                             </div>
                     </a>
                         </div>

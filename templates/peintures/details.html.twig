@@ -73,8 +73,8 @@
 
             <!-- Images -->
             <section class="pb-8 pt-md-12 pb-md-10">
-                <a class="d-block" data-bigpicture='{"imgSrc": "{{ vich_uploader_asset(peinture, 'imageFile') }}"}' href="#">
-                    <img class="img-fluid rounded" src="{{ vich_uploader_asset(peinture, 'imageFile') }}" alt="...">
+                <a class="d-block" data-bigpicture='{"imgSrc": "{{ vich_uploader_asset(peinture, 'imageFile') | imagine_filter('full') }}" }' href="#">
+                    <img class="img-fluid rounded" src="{{ vich_uploader_asset(peinture, 'imageFile') | imagine_filter('full') }}" alt="...">
                 </a>
             </section>
 

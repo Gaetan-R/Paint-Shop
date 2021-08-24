@@ -22,7 +22,7 @@ class PortfolioController extends AbstractController
     }
 
    /**
-    * @Route("/peintures/{slug}", name="portfolio_categorie")
+    * @Route("/portfolio/{slug}", name="portfolio_categorie")
     */
    public function categorie(Categorie $categorie, PeintureRepository $peintureRepository): Response
    {

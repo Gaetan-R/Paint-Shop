@@ -39,7 +39,8 @@ class PeintureRepository extends ServiceEntityRepository
             ->andWhere('p.portfolio = TRUE')
             ->setParameter('categorie', $categorie)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
     }
 
 }

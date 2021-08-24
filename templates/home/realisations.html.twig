@@ -27,10 +27,10 @@
 
 
                         </div>
-                        <a class="col-12 col-md-6 order-md-2 bg-cover card-img-end" style="background-image: url(/img/donkeykongreturn.jpg);" href="#!">
+                        <a class="col-12 col-md-6 order-md-2 bg-cover card-img-end" style="background-image: url({{ vich_uploader_asset(peinture, 'imageFile') | imagine_filter('miniature') }});" href="{{path('peintures_details', {'slug': peinture.slug} ) }}">
 
                             <!-- Image (placeholder) -->
-                            <img src="assets/img/photos/photo-27.jpg" alt="..." class="img-fluid d-md-none invisible">
+                            <img src="{{ vich_uploader_asset(peinture, 'imageFile') | imagine_filter('miniature') }}" alt="..." class="img-fluid d-md-none invisible">
 
                             <!-- Shape -->
                             <div class="shape shape-start shape-fluid-y text-white d-none d-md-block">
