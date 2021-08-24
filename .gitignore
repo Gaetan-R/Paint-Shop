@@ -28,3 +28,5 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /public/uploads/peintures
+!/public/uploads/peintures/Dk55.jpg
+!/public/uploads/peintures/tableau_gaming_donkey_kong.jpg
