@@ -65,6 +65,8 @@ class AppFixtures extends Fixture
 
             $categorie->setNom($faker->word)
                 ->setDescription($faker->text)
+                ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
+                ->setFile('tableau_gaming_donkey_kong.jpg')
                 ->setSlug($faker->slug);
 
             $manager->persist($categorie);

@@ -6,9 +6,14 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
+ * @Vich\Uploadable
+
  */
 class Categorie
 {
@@ -38,6 +43,27 @@ class Categorie
      * @ORM\ManyToMany(targetEntity=Peinture::class, mappedBy="categorie")
      */
     private $peintures;
+
+    /**
+     * @Vich\UploadableField(mapping="peinture_images", fileNameProperty="file")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="categories")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -117,6 +143,58 @@ class Categorie
     public function __toString()
     {
         return $this->Nom;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function setImageFile(?File $file = null): void
+    {
+        $this->imageFile = $file;
+
+        if (null !== $file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

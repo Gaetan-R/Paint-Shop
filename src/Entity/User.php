@@ -67,10 +67,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $blogposts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Categorie::class, mappedBy="user")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->peintures = new ArrayCollection();
         $this->blogposts = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
 
@@ -265,6 +271,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($blogpost->getUser() === $this) {
                 $blogpost->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getUser() === $this) {
+                $category->setUser(null);
             }
         }
 
