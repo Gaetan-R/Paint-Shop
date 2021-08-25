@@ -24,7 +24,7 @@ class BlogpostCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $detail = Action::new('detail','Details') //'fa fas-book-open'
+        $detail = Action::new('detail','Voir') //'fa fas-book-open'
             ->linkToCrudAction(Crud::PAGE_DETAIL)
             //->AddCssClass('btn btn-info')
             ;
@@ -51,6 +51,9 @@ class BlogpostCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setPageTitle('index', 'Articles de blog')
+            ->setPageTitle('new', 'Créer un nouvel article')
+            ->setPageTitle('edit', 'Editer article')
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
 

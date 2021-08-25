@@ -24,7 +24,7 @@ class CategorieCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $detail = Action::new('detail','Details') //'fa fas-book-open'
+        $detail = Action::new('detail','Voir') //'fa fas-book-open'
         ->linkToCrudAction(Crud::PAGE_DETAIL)
             //->AddCssClass('btn btn-info')
         ;
@@ -45,6 +45,15 @@ class CategorieCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')->hideOnForm(),
 
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', 'Catégories')
+            ->setPageTitle('new', 'Créer une nouvelle catégorie')
+            ->setPageTitle('edit', 'Editer la catégorie')
+            ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
 }

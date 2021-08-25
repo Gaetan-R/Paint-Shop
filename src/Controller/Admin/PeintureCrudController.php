@@ -61,6 +61,9 @@ class PeintureCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setPageTitle('index', 'Peintures')
+            ->setPageTitle('new', 'Créer une nouvelle peinture')
+            ->setPageTitle('edit', 'Editer la peinture')
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
