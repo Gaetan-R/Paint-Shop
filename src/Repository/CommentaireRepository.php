@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Blogpost;
 use App\Entity\Commentaire;
+use App\Entity\Peinture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +21,30 @@ class CommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaire::class);
     }
 
-    // /**
-    //  * @return Commentaire[] Returns an array of Commentaire objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Commentaire[] Returns an array of Commentaire objects
+     */
+
+    public function findCommentaires($value)
     {
+
+        if ($value instanceof Blogpost) {
+            $object = 'blogpost';
+        }
+        if ($value instanceof Peinture) {
+            $object = 'peinture';
+        }
+
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('c.' . $object .' = :val')
+            ->andWhere('c.isPublished = true')
+            ->setParameter('val', $value->getId())
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Commentaire

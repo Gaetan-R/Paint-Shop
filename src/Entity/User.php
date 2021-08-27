@@ -72,11 +72,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Commentaire::class, mappedBy="user")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->peintures = new ArrayCollection();
         $this->blogposts = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
 
@@ -307,4 +313,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            $commentaire->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 }

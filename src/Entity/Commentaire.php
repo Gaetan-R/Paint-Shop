@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,14 +40,29 @@ class Commentaire
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Peinture::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=Peinture::class, inversedBy="commentaire")
      */
     private $peinture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Blogpost::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=Blogpost::class, inversedBy="commentaire")
      */
     private $blogpost;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="commentaire")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,5 +139,46 @@ class Commentaire
         $this->blogpost = $blogpost;
 
         return $this;
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->auteur;
     }
 }

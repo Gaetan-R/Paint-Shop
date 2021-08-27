@@ -2,6 +2,7 @@
  namespace App\EventSuscriber;
 
  use App\Entity\Blogpost;
+ use App\Entity\Commentaire;
  use App\Entity\Peinture;
  use DateTime;
  use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -38,7 +39,7 @@
              $entity->setCreatedAt($now);
 
              $user = $this->security->getUser();
-             $entity->setUser($user);
+             $entity->getUser($user);
          }
 
          if (!($entity instanceof Peinture)) {
@@ -47,7 +48,16 @@
              $entity->setCreatedAt($now);
 
              $user = $this->security->getUser();
-             $entity->setUser($user);
+             $entity->getUser($user);
+         }
+
+         if (!($entity instanceof  Commentaire)) {
+
+             $now = new DateTime('now');
+             $entity->setCreatedAt($now);
+
+             $user = $this->security->getUser();
+             $entity->getUser($user);
          }
 
 
